@@ -1,8 +1,10 @@
 {
-  "/testimonies/page": "app/testimonies/page.js",
-  "/contact/page": "app/contact/page.js",
   "/page": "app/page.js",
-  "/gallery/page": "app/gallery/page.js",
   "/new-here/page": "app/new-here/page.js",
-  "/give/page": "app/give/page.js"
+  "/give/page": "app/give/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/dashboard/prayer-requests/page": "app/admin/dashboard/prayer-requests/page.js",
+  "/admin/dashboard/contact-messages/page": "app/admin/dashboard/contact-messages/page.js"
 }

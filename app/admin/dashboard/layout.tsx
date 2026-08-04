@@ -14,12 +14,17 @@ import {
   MessageSquare,
   LogOut,
   Flame,
+  Info,
+  DoorOpen,
+  Settings,
 } from "lucide-react";
 import { logoutAction } from "@/app/admin/login/actions";
 
 const navItems = [
   { label: "Overview", href: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Homepage Content", href: "/admin/dashboard/homepage", icon: Home },
+  { label: "About Us Page", href: "/admin/dashboard/about", icon: Info },
+  { label: "New Here Page", href: "/admin/dashboard/new-here", icon: DoorOpen },
   { label: "Service Times", href: "/admin/dashboard/service-times", icon: Clock },
   { label: "Events", href: "/admin/dashboard/events", icon: CalendarDays },
   { label: "Ministries", href: "/admin/dashboard/ministries", icon: Users2 },
@@ -30,6 +35,7 @@ const navItems = [
   { label: "Watch Online", href: "/admin/dashboard/watch-online", icon: Video },
   { label: "Prayer Requests", href: "/admin/dashboard/prayer-requests", icon: HandHeart },
   { label: "Contact Messages", href: "/admin/dashboard/contact-messages", icon: MessageSquare },
+  { label: "Site Settings", href: "/admin/dashboard/site-settings", icon: Settings },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Youtube, Instagram, Facebook, MapPin, Mail, Phone, Flame } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/data";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -13,7 +14,20 @@ const quickLinks = [
   { label: "Give", href: "/give" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const settings = await getSiteSettings();
+
+  const tagline = settings?.footer_tagline || "A place of love, faith and God's presence.";
+  const address1 = settings?.address_line1 || siteConfig.address.line1;
+  const address2 = settings?.address_line2 || siteConfig.address.line2;
+  const email = settings?.email || siteConfig.email;
+  const phone = settings?.phone || siteConfig.phone;
+  const socials = [
+    { icon: Youtube, href: settings?.social_youtube || siteConfig.social.youtube, label: "YouTube" },
+    { icon: Instagram, href: settings?.social_instagram || siteConfig.social.instagram, label: "Instagram" },
+    { icon: Facebook, href: settings?.social_facebook || siteConfig.social.facebook, label: "Facebook" },
+  ];
+
   return (
     <footer className="bg-navy-gradient text-navy-100">
       <div className="section grid grid-cols-1 gap-10 py-16 md:grid-cols-4">
@@ -29,13 +43,9 @@ export default function Footer() {
               <span className="block text-[11px] tracking-[0.25em] text-gold-400">NÜRNBERG</span>
             </span>
           </Link>
-          <p className="mt-4 text-sm text-navy-300">A place of love, faith and God&apos;s presence.</p>
+          <p className="mt-4 text-sm text-navy-300">{tagline}</p>
           <div className="mt-5 flex gap-3">
-            {[
-              { icon: Youtube, href: siteConfig.social.youtube, label: "YouTube" },
-              { icon: Instagram, href: siteConfig.social.instagram, label: "Instagram" },
-              { icon: Facebook, href: siteConfig.social.facebook, label: "Facebook" },
-            ].map(({ icon: Icon, href, label }) => (
+            {socials.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
@@ -69,21 +79,21 @@ export default function Footer() {
             <li className="flex gap-2.5">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
               <span>
-                {siteConfig.address.line1}
+                {address1}
                 <br />
-                {siteConfig.address.line2}
+                {address2}
               </span>
             </li>
             <li className="flex gap-2.5">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-              <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
-                {siteConfig.email}
+              <a href={`mailto:${email}`} className="hover:text-white">
+                {email}
               </a>
             </li>
             <li className="flex gap-2.5">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-              <a href={`tel:${siteConfig.phone}`} className="hover:text-white">
-                {siteConfig.phone}
+              <a href={`tel:${phone}`} className="hover:text-white">
+                {phone}
               </a>
             </li>
           </ul>

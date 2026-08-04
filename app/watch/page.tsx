@@ -38,19 +38,22 @@ export default async function WatchOnlinePage() {
         </div>
 
         {isLive && zoomLink && (
-          <div className="mt-6 flex items-center justify-between rounded-2xl border border-navy-100 bg-white p-5 shadow-card">
+          <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-navy-100 bg-white p-5 shadow-card sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <Video className="h-6 w-6 text-navy-700" />
               <div>
                 <p className="font-semibold text-navy-900">Join our Zoom prayer room</p>
-                <p className="text-sm text-navy-500">Connect with fellow believers during the service.</p>
+                <p className="text-sm text-navy-500">
+                  This opens Zoom in a new tab or the Zoom app — it&apos;s a separate, interactive room alongside
+                  the video above, not the video itself.
+                </p>
               </div>
             </div>
             <a
               href={zoomLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-navy-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700"
+              className="shrink-0 rounded-full bg-navy-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700"
             >
               Join Zoom
             </a>

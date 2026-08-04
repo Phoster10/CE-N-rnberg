@@ -5,20 +5,20 @@ export const siteConfig = {
     "Christ Embassy Nürnberg is a dynamic, Christ-centered church committed to winning souls, building believers, and raising leaders through the Word of God.",
   url: "https://christembassy-nuernberg.de",
   address: {
-    line1: "Lehrerstraße 6",
-    line2: "90453 Nürnberg, Germany",
-    full: "Lehrerstraße 6, 90453 Nürnberg, Germany",
+    line1: "Thomas-Mann-Straße 60",
+    line2: "90471 Nürnberg, Germany",
+    full: "Thomas-Mann-Straße 60, 90471 Nürnberg, Germany",
   },
-  phone: "+49 162 1234567",
+  phone: "+4915142024914",
   email: "info@christembassy-nuernberg.de",
   serviceTimes: [
     { label: "Sunday Service", time: "10:00 AM" },
-    { label: "Midweek Service", time: "7:00 PM (Wed)" },
+    { label: "Midweek Service", time: "6:00 PM (Wed)" },
   ],
   social: {
     youtube: "https://youtube.com",
     instagram: "https://instagram.com",
-    facebook: "https://facebook.com",
+    facebook: "https://www.facebook.com/cechurchnurnberg",
   },
   bank: {
     accountName: "Christ Embassy Nürnberg",
@@ -29,9 +29,9 @@ export const siteConfig = {
   giveUrl: "#",
   zoomLink: "",
   mapEmbedSrc:
-    "https://www.google.com/maps?q=Lehrerstra%C3%9Fe+6,+90453+N%C3%BCrnberg,+Germany&output=embed",
+    "https://www.google.com/maps?q=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany&output=embed",
   mapDirectionsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=Lehrerstra%C3%9Fe+6,+90453+N%C3%BCrnberg,+Germany",
+    "https://www.google.com/maps/dir/?api=1&destination=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany",
 } as const;
 
 export const mainNav = [

@@ -362,3 +362,125 @@ where not exists (select 1 from public.homepage_content);
 insert into public.watch_online_settings (is_live, youtube_embed_url, zoom_link)
 select false, null, null
 where not exists (select 1 from public.watch_online_settings);
+
+-- ============================================================================
+-- ADDENDUM — full site-wide editability
+-- Run this block too (it's idempotent — safe to run even if you already ran
+-- everything above). It adds:
+--   1. Image fields on homepage_content (hero background, welcome photo)
+--   2. about_content — every text block + both photos on the About page
+--   3. new_here_content — text + photo on the New Here page
+--   4. site_settings — contact info, socials, bank details, map links,
+--      footer tagline: every "hardcoded" church detail, now editable
+-- All existing pages read from these tables with the old hardcoded values
+-- as a fallback, so nothing breaks if a field is left empty.
+-- ============================================================================
+
+alter table public.homepage_content
+  add column if not exists hero_image_url text,
+  add column if not exists welcome_image_url text;
+
+-- ----------------------------------------------------------------------------
+-- About page content (single row)
+-- ----------------------------------------------------------------------------
+create table if not exists public.about_content (
+  id uuid primary key default gen_random_uuid(),
+  who_we_are_text text not null default '',
+  vision_text text not null default 'To reach out with the Gospel of Christ to all nations.',
+  mission_text text not null default 'To win souls, build believers, and raise leaders.',
+  values_text text not null default 'Love, excellence, integrity, faith & service.',
+  believe_text text not null default '',
+  portrait_image_url text,
+  congregation_image_url text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.about_content enable row level security;
+
+create policy "Public can read about content"
+  on public.about_content for select using (true);
+
+create policy "Admins can manage about content"
+  on public.about_content for all
+  using (public.is_admin()) with check (public.is_admin());
+
+insert into public.about_content (who_we_are_text, believe_text)
+select
+  'Christ Embassy Nürnberg is a dynamic, Christ-centered church committed to winning souls, building believers, and raising leaders through the Word of God. We are part of a global ministry founded by Pastor Chris Oyakhilome, and we are passionate about impacting our city and the nations with God''s love.',
+  'We believe in the absolute truth of God''s Word, in the power of prayer, in the Holy Spirit, and in living a life that reflects Christ.'
+where not exists (select 1 from public.about_content);
+
+-- ----------------------------------------------------------------------------
+-- New Here page content (single row)
+-- ----------------------------------------------------------------------------
+create table if not exists public.new_here_content (
+  id uuid primary key default gen_random_uuid(),
+  heading text not null default 'What should I wear?',
+  image_url text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.new_here_content enable row level security;
+
+create policy "Public can read new here content"
+  on public.new_here_content for select using (true);
+
+create policy "Admins can manage new here content"
+  on public.new_here_content for all
+  using (public.is_admin()) with check (public.is_admin());
+
+insert into public.new_here_content (heading)
+select 'What should I wear?'
+where not exists (select 1 from public.new_here_content);
+
+-- ----------------------------------------------------------------------------
+-- Site-wide settings: contact info, socials, bank details, map, footer
+-- (single row)
+-- ----------------------------------------------------------------------------
+create table if not exists public.site_settings (
+  id uuid primary key default gen_random_uuid(),
+  phone text not null default '+49 162 1234567',
+  email text not null default 'info@christembassy-nuernberg.de',
+  address_line1 text not null default 'Thomas-Mann-Straße 60',
+  address_line2 text not null default '90471 Nürnberg, Germany',
+  footer_tagline text not null default 'A place of love, faith and God''s presence.',
+  social_youtube text,
+  social_instagram text,
+  social_facebook text,
+  bank_account_name text not null default 'Christ Embassy Nürnberg',
+  bank_iban text not null default '',
+  bank_bic text not null default '',
+  bank_name text not null default '',
+  give_url text,
+  map_embed_src text,
+  map_directions_url text,
+  new_here_note text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_settings enable row level security;
+
+create policy "Public can read site settings"
+  on public.site_settings for select using (true);
+
+create policy "Admins can manage site settings"
+  on public.site_settings for all
+  using (public.is_admin()) with check (public.is_admin());
+
+insert into public.site_settings (map_embed_src, map_directions_url)
+select
+  'https://www.google.com/maps?q=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany&output=embed',
+  'https://www.google.com/maps/dir/?api=1&destination=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany'
+where not exists (select 1 from public.site_settings);
+
+-- ----------------------------------------------------------------------------
+-- If you already ran this file before with the old address, the insert above
+-- was skipped (a site_settings row already existed) — this updates it too.
+-- Safe to re-run any time; it only overwrites these specific fields.
+-- ----------------------------------------------------------------------------
+update public.site_settings set
+  address_line1 = 'Thomas-Mann-Straße 60',
+  address_line2 = '90471 Nürnberg, Germany',
+  map_embed_src = coalesce(map_embed_src, 'https://www.google.com/maps?q=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany&output=embed'),
+  map_directions_url = coalesce(map_directions_url, 'https://www.google.com/maps/dir/?api=1&destination=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany')
+where address_line1 = 'Lehrerstraße 6';

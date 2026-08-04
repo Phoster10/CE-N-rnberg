@@ -2,16 +2,21 @@ import { Clock, MapPin, Navigation, Bus, Car, TrainFront } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PageHero from "@/components/page-hero";
 import { siteConfig } from "@/lib/site-config";
-import { getServiceTimes } from "@/lib/data";
+import { getServiceTimes, getSiteSettings } from "@/lib/data";
 
 export const metadata = { title: "Visit Us" };
 
 export default async function VisitPage() {
-  const services = await getServiceTimes();
+  const [services, settings] = await Promise.all([getServiceTimes(), getSiteSettings()]);
   const list =
     services.length > 0
       ? services.map((s) => ({ label: s.label, time: s.time }))
       : siteConfig.serviceTimes;
+
+  const address1 = settings?.address_line1 || siteConfig.address.line1;
+  const address2 = settings?.address_line2 || siteConfig.address.line2;
+  const mapSrc = settings?.map_embed_src || siteConfig.mapEmbedSrc;
+  const directionsUrl = settings?.map_directions_url || siteConfig.mapDirectionsUrl;
 
   return (
     <>
@@ -20,9 +25,9 @@ export default async function VisitPage() {
       <section className="section grid grid-cols-1 gap-10 py-20 lg:grid-cols-2">
         <div className="space-y-6">
           <InfoRow icon={MapPin} title="Our Location">
-            {siteConfig.address.line1}
+            {address1}
             <br />
-            {siteConfig.address.line2}
+            {address2}
           </InfoRow>
           <InfoRow icon={Clock} title="Service Times">
             <ul className="space-y-1">
@@ -36,16 +41,16 @@ export default async function VisitPage() {
           <InfoRow icon={Navigation} title="How to Get Here">
             We are easily accessible by public transport. Free parking is available near the church.
           </InfoRow>
-          <Button href={siteConfig.mapDirectionsUrl} variant="secondary">
+          <Button href={directionsUrl} variant="secondary">
             Get Directions
           </Button>
 
           <div className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
             {[
-              { icon: TrainFront, label: "By U-Bahn", sub: "U2 to Schweinau, 5 min walk" },
+              { icon: TrainFront, label: "By U-Bahn", sub: "U1 to Scharfeiterring, 13 min walk" },
               { icon: Bus, label: "By Bus", sub: "Bus 63/67 · Lehrerstraße Stop" },
               { icon: Car, label: "By Car", sub: "Free parking available" },
-              { icon: MapPin, label: "Address", sub: "90453 Nürnberg" },
+              { icon: MapPin, label: "Address", sub: address2 },
             ].map((t) => (
               <div key={t.label} className="rounded-xl border border-navy-100 p-4 text-center shadow-card">
                 <t.icon className="mx-auto h-5 w-5 text-navy-700" />
@@ -59,7 +64,7 @@ export default async function VisitPage() {
         <div className="overflow-hidden rounded-2xl border border-navy-100 shadow-soft">
           <iframe
             title="Christ Embassy Nürnberg location map"
-            src={siteConfig.mapEmbedSrc}
+            src={mapSrc}
             className="h-full min-h-[420px] w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

@@ -9,7 +9,7 @@ const fields: FieldConfig[] = [
     type: "text",
     helpText: "e.g. https://www.youtube.com/embed/VIDEO_ID",
   },
-  { key: "zoom_link", label: "Zoom Link", type: "text" },
+  { key: "zoom_link", label: "Zoom Link", type: "text", helpText: "Opens Zoom in a new tab/app when clicked — it cannot be embedded to play inside the page like YouTube can." },
 ];
 
 export default function WatchOnlineAdminPage() {

@@ -7,7 +7,11 @@ Tailwind CSS, Framer Motion, and Supabase (Auth, Postgres, Storage).
 
 1. Create a project at https://supabase.com.
 2. In the SQL Editor, run the entire contents of `sql/schema.sql`. This creates
-   every table, Row-Level Security policy, and the `public-media` storage bucket.
+   every table, Row-Level Security policy, and the `public-media` storage bucket —
+   including the "full site-wide editability" tables added at the bottom of the
+   file (`about_content`, `new_here_content`, `site_settings`, plus two new image
+   columns on `homepage_content`). The whole file is safe to re-run if you already
+   ran an earlier version — every statement is idempotent.
 3. Under **Authentication → Users**, create an account for each admin/staff
    member (email + password).
 4. Copy each admin's **User UID** and run, once per admin:
@@ -75,10 +79,36 @@ Visit `http://localhost:3000`. The admin dashboard is at `/admin/login`
   bucket config and in the admin upload UI.
 - All form inputs are validated with `zod` before being written to the database.
 
-## What's still a placeholder
+## Admin control — what's editable
 
-- "Give Now" links to `siteConfig.giveUrl` in `lib/site-config.ts` — wire this
-  up to your real payment processor (Stripe, PayPal, a German provider, etc.).
-- The footer newsletter form is UI-only; connect it to an email provider if needed.
-- Sample/fallback content (service times, ministries, testimonies) shows on
-  pages until you add real rows via the admin dashboard.
+Every piece of text and every photo placeholder shown in the original design
+is now editable from `/admin/dashboard`, with no code changes needed:
+
+- **Homepage Content** — hero heading/subheading, hero background photo, welcome
+  message + photo, memory verse
+- **About Us Page** — "Who We Are" text + portrait photo, vision/mission/values,
+  "What We Believe" text + congregation photo
+- **New Here Page** — heading + the "Our Church Family" photo
+- **Site Settings** — phone, email, address, footer tagline, social links, bank
+  details, the "Give Now" link, and both Google Maps URLs (used on Visit Us and
+  Contact)
+- **Service Times, Events, Ministries, Gallery, Testimonies, Rhapsody of
+  Realities, Announcements, Watch Online settings** — full create/edit/delete,
+  each with image (and video, for Gallery) upload where a photo appears in the
+  design
+- **Prayer Requests / Contact Messages** — read and manage submissions
+
+Every page falls back to sensible placeholder text/gradients if a field is
+left empty, so the site never looks broken while content is still being filled in.
+
+## How the livestream works
+
+- **YouTube** (`youtube_embed_url` in Watch Online settings) is embedded directly
+  in the page with an `<iframe>` — visitors watch without leaving your site.
+- **Zoom** (`zoom_link`) cannot be embedded the same way — Zoom doesn't support
+  playing a live meeting inside an arbitrary webpage. The "Join Zoom" button is a
+  plain link that opens the Zoom app or Zoom's own site in a new tab. Use it for
+  a secondary, interactive room (e.g. an online prayer room) alongside the
+  embedded YouTube stream, not as the main video itself.
+
+

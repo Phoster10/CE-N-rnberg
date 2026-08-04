@@ -87,6 +87,48 @@ export type HomepageContent = {
   memory_verse_text: string;
   memory_verse_reference: string;
   welcome_message: string;
+  hero_image_url: string | null;
+  welcome_image_url: string | null;
+  updated_at: string;
+};
+
+export type AboutContent = {
+  id: string;
+  who_we_are_text: string;
+  vision_text: string;
+  mission_text: string;
+  values_text: string;
+  believe_text: string;
+  portrait_image_url: string | null;
+  congregation_image_url: string | null;
+  updated_at: string;
+};
+
+export type NewHereContent = {
+  id: string;
+  heading: string;
+  image_url: string | null;
+  updated_at: string;
+};
+
+export type SiteSettings = {
+  id: string;
+  phone: string;
+  email: string;
+  address_line1: string;
+  address_line2: string;
+  footer_tagline: string;
+  social_youtube: string | null;
+  social_instagram: string | null;
+  social_facebook: string | null;
+  bank_account_name: string;
+  bank_iban: string;
+  bank_bic: string;
+  bank_name: string;
+  give_url: string | null;
+  map_embed_src: string | null;
+  map_directions_url: string | null;
+  new_here_note: string | null;
   updated_at: string;
 };
 

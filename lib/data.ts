@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type {
+  AboutContent,
   Announcement,
   ContactMessage,
   Event,
@@ -7,9 +8,11 @@ import type {
   GalleryItem,
   HomepageContent,
   Ministry,
+  NewHereContent,
   PrayerRequest,
   RhapsodyEntry,
   ServiceTime,
+  SiteSettings,
   Testimony,
   WatchOnlineSettings,
 } from "@/types/database";
@@ -113,6 +116,24 @@ export async function getWatchOnlineSettings(): Promise<WatchOnlineSettings | nu
   const supabase = await createClient();
   const { data } = await supabase.from("watch_online_settings").select("*").limit(1).maybeSingle();
   return data as WatchOnlineSettings | null;
+}
+
+export async function getAboutContent(): Promise<AboutContent | null> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("about_content").select("*").limit(1).maybeSingle();
+  return data as AboutContent | null;
+}
+
+export async function getNewHereContent(): Promise<NewHereContent | null> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("new_here_content").select("*").limit(1).maybeSingle();
+  return data as NewHereContent | null;
+}
+
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("site_settings").select("*").limit(1).maybeSingle();
+  return data as SiteSettings | null;
 }
 
 // ---- Admin-only reads (called from dashboard Server Components, after the

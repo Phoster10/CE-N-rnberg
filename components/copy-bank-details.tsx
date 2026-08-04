@@ -2,13 +2,22 @@
 
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import { siteConfig } from "@/lib/site-config";
 
-export default function CopyBankDetails() {
+export default function CopyBankDetails({
+  accountName,
+  iban,
+  bic,
+  bank,
+}: {
+  accountName: string;
+  iban: string;
+  bic: string;
+  bank: string;
+}) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    const text = `Account Name: ${siteConfig.bank.accountName}\nIBAN: ${siteConfig.bank.iban}\nBIC: ${siteConfig.bank.bic}\nBank: ${siteConfig.bank.bank}`;
+    const text = `Account Name: ${accountName}\nIBAN: ${iban}\nBIC: ${bic}\nBank: ${bank}`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);

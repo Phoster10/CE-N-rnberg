@@ -33,13 +33,25 @@ export default async function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-gradient">
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 20%, rgba(234,173,51,0.35), transparent 40%), radial-gradient(circle at 80% 60%, rgba(79,99,173,0.4), transparent 45%)",
-          }}
-        />
+        {content?.hero_image_url ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={content.hero_image_url}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-navy-950/70" />
+          </>
+        ) : (
+          <div
+            className="absolute inset-0 opacity-25"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 20%, rgba(234,173,51,0.35), transparent 40%), radial-gradient(circle at 80% 60%, rgba(79,99,173,0.4), transparent 45%)",
+            }}
+          />
+        )}
         <div className="section relative grid grid-cols-1 gap-12 py-24 lg:grid-cols-2 lg:py-32">
           <div className="flex flex-col justify-center">
             <span className="eyebrow text-gold-400">{heroSub}</span>
@@ -71,6 +83,12 @@ export default async function HomePage() {
           <Button href="/about" variant="secondary" className="mt-6">
             Learn More About Us <ArrowRight className="h-4 w-4" />
           </Button>
+          {content?.welcome_image_url && (
+            <div className="mt-6 overflow-hidden rounded-2xl shadow-card">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={content.welcome_image_url} alt="" className="h-56 w-full object-cover" />
+            </div>
+          )}
         </div>
         <div className="rounded-2xl bg-navy-gradient p-8 text-white shadow-soft">
           <Quote className="h-8 w-8 text-gold-400" />

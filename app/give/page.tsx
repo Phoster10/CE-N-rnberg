@@ -3,6 +3,7 @@ import PageHero from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import CopyBankDetails from "@/components/copy-bank-details";
 import { siteConfig } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/data";
 
 export const metadata = { title: "Give" };
 
@@ -20,7 +21,17 @@ const faqs = [
   { q: "How is the money used?", a: "Giving supports the Gospel, our people, church operations, and community impact — see above." },
 ];
 
-export default function GivePage() {
+export default async function GivePage() {
+  const settings = await getSiteSettings();
+
+  const bank = {
+    accountName: settings?.bank_account_name || siteConfig.bank.accountName,
+    iban: settings?.bank_iban || siteConfig.bank.iban,
+    bic: settings?.bank_bic || siteConfig.bank.bic,
+    bank: settings?.bank_name || siteConfig.bank.bank,
+  };
+  const giveUrl = settings?.give_url || siteConfig.giveUrl;
+
   return (
     <>
       <section className="relative overflow-hidden bg-navy-gradient py-24 text-center text-white">
@@ -64,12 +75,12 @@ export default function GivePage() {
             <h3 className="mt-4 font-display text-lg font-semibold text-navy-900">Bank Transfer</h3>
             <p className="mt-1 text-sm text-navy-500">Give securely via bank transfer.</p>
             <dl className="mt-4 space-y-1.5 text-sm">
-              <Row label="Account Name" value={siteConfig.bank.accountName} />
-              <Row label="IBAN" value={siteConfig.bank.iban} />
-              <Row label="BIC" value={siteConfig.bank.bic} />
-              <Row label="Bank" value={siteConfig.bank.bank} />
+              <Row label="Account Name" value={bank.accountName} />
+              <Row label="IBAN" value={bank.iban} />
+              <Row label="BIC" value={bank.bic} />
+              <Row label="Bank" value={bank.bank} />
             </dl>
-            <CopyBankDetails />
+            <CopyBankDetails accountName={bank.accountName} iban={bank.iban} bic={bank.bic} bank={bank.bank} />
           </div>
 
           <div className="rounded-2xl border-2 border-gold-400 bg-white p-6 shadow-glow">
@@ -83,7 +94,7 @@ export default function GivePage() {
               </span>
             </div>
             <p className="mt-1 text-sm text-navy-500">Give quickly and securely online.</p>
-            <Button href={siteConfig.giveUrl} className="mt-6 w-full">
+            <Button href={giveUrl} className="mt-6 w-full">
               Give Now
             </Button>
             <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-navy-400">

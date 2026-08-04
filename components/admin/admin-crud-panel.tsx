@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Plus, Pencil, Trash2, X, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Loader2, ImageOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type FieldType = "text" | "textarea" | "datetime" | "date" | "boolean" | "number" | "select" | "image";
@@ -13,7 +13,7 @@ export type FieldConfig = {
   type: FieldType;
   options?: { label: string; value: string }[];
   required?: boolean;
-  bucket?: string; // storage bucket for image uploads
+  bucket?: string;
   helpText?: string;
 };
 
@@ -45,6 +45,9 @@ export default function AdminCrudPanel({
   const [formOpen, setFormOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploadingKey, setUploadingKey] = useState<string | null>(null);
+  // Tracks image fields the admin explicitly cleared in the current form,
+  // so "Save" removes the photo instead of leaving the old URL in place.
+  const [removedImageKeys, setRemovedImageKeys] = useState<Set<string>>(new Set());
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -66,11 +69,13 @@ export default function AdminCrudPanel({
 
   const openCreate = () => {
     setEditing(null);
+    setRemovedImageKeys(new Set());
     setFormOpen(true);
   };
 
   const openEdit = (row: Row) => {
     setEditing(row);
+    setRemovedImageKeys(new Set());
     setFormOpen(true);
   };
 
@@ -124,13 +129,16 @@ export default function AdminCrudPanel({
       }
     }
 
-    // Handle any image fields (upload if a new file was chosen)
+    // Handle image fields: a newly chosen file wins; otherwise an explicit
+    // "Remove photo" click clears the field; otherwise keep the existing URL.
     for (const field of fields.filter((f) => f.type === "image")) {
       const fileInput = formEl.elements.namedItem(field.key) as HTMLInputElement | null;
       const file = fileInput?.files?.[0];
       if (file) {
         const url = await handleUpload(file, field);
         if (url) payload[field.key] = url;
+      } else if (removedImageKeys.has(field.key)) {
+        payload[field.key] = null;
       } else if (editing) {
         payload[field.key] = editing[field.key] ?? null;
       }
@@ -149,6 +157,7 @@ export default function AdminCrudPanel({
 
     setFormOpen(false);
     setEditing(null);
+    setRemovedImageKeys(new Set());
     load();
   };
 
@@ -239,114 +248,138 @@ export default function AdminCrudPanel({
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              {fields.map((field) => (
-                <div key={field.key}>
-                  {field.type !== "boolean" && (
-                    <label htmlFor={field.key} className="mb-1.5 block text-sm font-medium text-navy-700">
-                      {field.label}
-                      {field.required && <span className="text-red-500"> *</span>}
-                    </label>
-                  )}
+              {fields.map((field) => {
+                const currentImageUrl = editing?.[field.key] as string | undefined;
+                const isRemoved = removedImageKeys.has(field.key);
 
-                  {field.type === "textarea" && (
-                    <textarea
-                      id={field.key}
-                      name={field.key}
-                      required={field.required}
-                      rows={4}
-                      defaultValue={(editing?.[field.key] as string) ?? ""}
-                      className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
-                    />
-                  )}
+                return (
+                  <div key={field.key}>
+                    {field.type !== "boolean" && (
+                      <label htmlFor={field.key} className="mb-1.5 block text-sm font-medium text-navy-700">
+                        {field.label}
+                        {field.required && <span className="text-red-500"> *</span>}
+                      </label>
+                    )}
 
-                  {(field.type === "text" || field.type === "number") && (
-                    <input
-                      id={field.key}
-                      name={field.key}
-                      type={field.type === "number" ? "number" : "text"}
-                      required={field.required}
-                      defaultValue={(editing?.[field.key] as string | number) ?? ""}
-                      className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
-                    />
-                  )}
+                    {field.type === "textarea" && (
+                      <textarea
+                        id={field.key}
+                        name={field.key}
+                        required={field.required}
+                        rows={4}
+                        defaultValue={(editing?.[field.key] as string) ?? ""}
+                        className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
+                      />
+                    )}
 
-                  {field.type === "datetime" && (
-                    <input
-                      id={field.key}
-                      name={field.key}
-                      type="datetime-local"
-                      required={field.required}
-                      defaultValue={toLocalInputValue(editing?.[field.key] as string)}
-                      className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
-                    />
-                  )}
-
-                  {field.type === "date" && (
-                    <input
-                      id={field.key}
-                      name={field.key}
-                      type="date"
-                      required={field.required}
-                      defaultValue={(editing?.[field.key] as string)?.slice(0, 10) ?? ""}
-                      className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
-                    />
-                  )}
-
-                  {field.type === "select" && (
-                    <select
-                      id={field.key}
-                      name={field.key}
-                      required={field.required}
-                      defaultValue={(editing?.[field.key] as string) ?? field.options?.[0]?.value}
-                      className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
-                    >
-                      {field.options?.map((o) => (
-                        <option key={o.value} value={o.value}>
-                          {o.label}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-
-                  {field.type === "boolean" && (
-                    <label className="flex items-center gap-2 text-sm font-medium text-navy-700">
+                    {(field.type === "text" || field.type === "number") && (
                       <input
                         id={field.key}
                         name={field.key}
-                        type="checkbox"
-                        defaultChecked={Boolean(editing?.[field.key])}
-                        className="h-4 w-4 accent-gold-500"
+                        type={field.type === "number" ? "number" : "text"}
+                        required={field.required}
+                        defaultValue={(editing?.[field.key] as string | number) ?? ""}
+                        className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
                       />
-                      {field.label}
-                    </label>
-                  )}
+                    )}
 
-                  {field.type === "image" && (
-                    <>
+                    {field.type === "datetime" && (
                       <input
                         id={field.key}
                         name={field.key}
-                        type="file"
-                        accept="image/jpeg,image/png,image/webp,image/gif,video/mp4"
-                        className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-navy-50 file:px-3 file:py-1.5 file:text-xs file:font-semibold"
+                        type="datetime-local"
+                        required={field.required}
+                        defaultValue={toLocalInputValue(editing?.[field.key] as string)}
+                        className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
                       />
-                      {uploadingKey === field.key && (
-                        <p className="mt-1 text-xs text-navy-400">Uploading...</p>
-                      )}
-                      {editing?.[field.key] ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={editing[field.key] as string}
-                          alt=""
-                          className="mt-2 h-20 w-20 rounded-lg object-cover"
+                    )}
+
+                    {field.type === "date" && (
+                      <input
+                        id={field.key}
+                        name={field.key}
+                        type="date"
+                        required={field.required}
+                        defaultValue={(editing?.[field.key] as string)?.slice(0, 10) ?? ""}
+                        className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
+                      />
+                    )}
+
+                    {field.type === "select" && (
+                      <select
+                        id={field.key}
+                        name={field.key}
+                        required={field.required}
+                        defaultValue={(editing?.[field.key] as string) ?? field.options?.[0]?.value}
+                        className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm focus:border-gold-500 focus:outline-none"
+                      >
+                        {field.options?.map((o) => (
+                          <option key={o.value} value={o.value}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+
+                    {field.type === "boolean" && (
+                      <label className="flex items-center gap-2 text-sm font-medium text-navy-700">
+                        <input
+                          id={field.key}
+                          name={field.key}
+                          type="checkbox"
+                          defaultChecked={Boolean(editing?.[field.key])}
+                          className="h-4 w-4 accent-gold-500"
                         />
-                      ) : null}
-                    </>
-                  )}
+                        {field.label}
+                      </label>
+                    )}
 
-                  {field.helpText && <p className="mt-1 text-xs text-navy-400">{field.helpText}</p>}
-                </div>
-              ))}
+                    {field.type === "image" && (
+                      <>
+                        <input
+                          id={field.key}
+                          name={field.key}
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4"
+                          onChange={() => {
+                            // Choosing a new file cancels a pending "remove"
+                            setRemovedImageKeys((prev) => {
+                              const next = new Set(prev);
+                              next.delete(field.key);
+                              return next;
+                            });
+                          }}
+                          className="w-full rounded-xl border border-navy-200 px-4 py-2.5 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-navy-50 file:px-3 file:py-1.5 file:text-xs file:font-semibold"
+                        />
+                        {uploadingKey === field.key && (
+                          <p className="mt-1 text-xs text-navy-400">Uploading...</p>
+                        )}
+                        {currentImageUrl && !isRemoved ? (
+                          <div className="mt-2 flex items-center gap-3">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={currentImageUrl} alt="" className="h-20 w-20 rounded-lg object-cover" />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setRemovedImageKeys((prev) => new Set(prev).add(field.key))
+                              }
+                              className="flex items-center gap-1.5 rounded-full border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"
+                            >
+                              <ImageOff className="h-3.5 w-3.5" /> Remove photo
+                            </button>
+                          </div>
+                        ) : isRemoved ? (
+                          <p className="mt-2 text-xs font-medium text-red-600">
+                            Photo will be removed when you save.
+                          </p>
+                        ) : null}
+                      </>
+                    )}
+
+                    {field.helpText && <p className="mt-1 text-xs text-navy-400">{field.helpText}</p>}
+                  </div>
+                );
+              })}
 
               <div className="flex gap-3 pt-2">
                 <button
