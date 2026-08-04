@@ -1,0 +1,19 @@
+{
+  "node": {
+    "60fd76f12306e96307b354493c32abf713a69d87c1": {
+      "workers": {
+        "app/contact/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Ccontact%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%2260fd76f12306e96307b354493c32abf713a69d87c1%22%2C%22exportedName%22%3A%22submitContactMessage%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Ccontact%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/contact/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\User\\Documents\\vs code\\church-site\\app\\contact\\actions.ts",
+      "exportedName": "submitContactMessage"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "aOZaVujYvEIdM+0A2JdQXUEIJXgtotmuDaBClOA02+8="
+}
