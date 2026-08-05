@@ -1,18 +1,5 @@
 {
   "node": {
-    "60fd76f12306e96307b354493c32abf713a69d87c1": {
-      "workers": {
-        "app/contact/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Ccontact%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%2260fd76f12306e96307b354493c32abf713a69d87c1%22%2C%22exportedName%22%3A%22submitContactMessage%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Ccontact%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/contact/page": "action-browser"
-      },
-      "filename": "../C:\\Users\\User\\Documents\\vs code\\church-site\\app\\contact\\actions.ts",
-      "exportedName": "submitContactMessage"
-    },
     "0081a26d8d35f299bbbe60bffe5a4af70846880639": {
       "workers": {
         "app/admin/login/page": {
@@ -22,21 +9,11 @@
         "app/admin/dashboard/page": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%220081a26d8d35f299bbbe60bffe5a4af70846880639%22%2C%22exportedName%22%3A%22logoutAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%2C%7B%22id%22%3A%2260221dfe906e2cfa9f672ee4f7f039b451f6bb5458%22%2C%22exportedName%22%3A%22loginAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
-        },
-        "app/admin/dashboard/prayer-requests/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%220081a26d8d35f299bbbe60bffe5a4af70846880639%22%2C%22exportedName%22%3A%22logoutAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%2C%7B%22id%22%3A%2260221dfe906e2cfa9f672ee4f7f039b451f6bb5458%22%2C%22exportedName%22%3A%22loginAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
-        },
-        "app/admin/dashboard/contact-messages/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%220081a26d8d35f299bbbe60bffe5a4af70846880639%22%2C%22exportedName%22%3A%22logoutAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%2C%7B%22id%22%3A%2260221dfe906e2cfa9f672ee4f7f039b451f6bb5458%22%2C%22exportedName%22%3A%22loginAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
         }
       },
       "layer": {
         "app/admin/login/page": "action-browser",
-        "app/admin/dashboard/page": "rsc",
-        "app/admin/dashboard/prayer-requests/page": "rsc",
-        "app/admin/dashboard/contact-messages/page": "rsc"
+        "app/admin/dashboard/page": "rsc"
       },
       "filename": "../C:\\Users\\User\\Documents\\vs code\\church-site\\app\\admin\\login\\actions.ts",
       "exportedName": "logoutAction"
@@ -50,21 +27,11 @@
         "app/admin/dashboard/page": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%220081a26d8d35f299bbbe60bffe5a4af70846880639%22%2C%22exportedName%22%3A%22logoutAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%2C%7B%22id%22%3A%2260221dfe906e2cfa9f672ee4f7f039b451f6bb5458%22%2C%22exportedName%22%3A%22loginAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
-        },
-        "app/admin/dashboard/prayer-requests/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%220081a26d8d35f299bbbe60bffe5a4af70846880639%22%2C%22exportedName%22%3A%22logoutAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%2C%7B%22id%22%3A%2260221dfe906e2cfa9f672ee4f7f039b451f6bb5458%22%2C%22exportedName%22%3A%22loginAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
-        },
-        "app/admin/dashboard/contact-messages/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%7B%22id%22%3A%220081a26d8d35f299bbbe60bffe5a4af70846880639%22%2C%22exportedName%22%3A%22logoutAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%2C%7B%22id%22%3A%2260221dfe906e2cfa9f672ee4f7f039b451f6bb5458%22%2C%22exportedName%22%3A%22loginAction%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5CUser%5C%5CDocuments%5C%5Cvs%20code%5C%5Cchurch-site%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cactions.ts%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
         }
       },
       "layer": {
         "app/admin/login/page": "action-browser",
-        "app/admin/dashboard/page": "rsc",
-        "app/admin/dashboard/prayer-requests/page": "rsc",
-        "app/admin/dashboard/contact-messages/page": "rsc"
+        "app/admin/dashboard/page": "rsc"
       },
       "filename": "../C:\\Users\\User\\Documents\\vs code\\church-site\\app\\admin\\login\\actions.ts",
       "exportedName": "loginAction"

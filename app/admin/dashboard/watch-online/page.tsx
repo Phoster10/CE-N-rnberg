@@ -5,11 +5,17 @@ const fields: FieldConfig[] = [
   { key: "is_live", label: "Currently Live", type: "boolean" },
   {
     key: "youtube_embed_url",
-    label: "YouTube Embed URL",
+    label: "Facebook Live Embed URL",
     type: "text",
-    helpText: "e.g. https://www.youtube.com/embed/VIDEO_ID",
+    helpText:
+      "On the live Facebook post, click ⋯ → Embed, and copy the URL from inside the src=\"...\" part of the embed code (looks like https://www.facebook.com/plugins/video.php?href=...). Paste just that URL here.",
   },
-  { key: "zoom_link", label: "Zoom Link", type: "text", helpText: "Opens Zoom in a new tab/app when clicked — it cannot be embedded to play inside the page like YouTube can." },
+  {
+    key: "zoom_link",
+    label: "Zoom Link",
+    type: "text",
+    helpText: "Opens Zoom in a new tab/app when clicked — it cannot be embedded to play inside the page like the Facebook stream can.",
+  },
 ];
 
 export default function WatchOnlineAdminPage() {

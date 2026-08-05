@@ -1,15 +1,19 @@
 import { PlayCircle, Video } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
-import { getWatchOnlineSettings } from "@/lib/data";
+import { getWatchOnlineSettings, getSiteSettings } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata = { title: "Watch Online" };
 
 export default async function WatchOnlinePage() {
-  const settings = await getWatchOnlineSettings();
+  const [settings, siteSettings] = await Promise.all([getWatchOnlineSettings(), getSiteSettings()]);
   const isLive = settings?.is_live ?? false;
+  // We stream on Facebook Live. Facebook's video plugin embeds the same way
+  // YouTube's does — just paste the Facebook Live "Embed" link here.
   const embedUrl = settings?.youtube_embed_url;
   const zoomLink = settings?.zoom_link;
+  const facebookUrl = siteSettings?.social_facebook || siteConfig.social.facebook;
 
   return (
     <>
@@ -23,7 +27,7 @@ export default async function WatchOnlinePage() {
                 src={embedUrl}
                 title="Live service"
                 className="h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />
             </div>
@@ -31,8 +35,10 @@ export default async function WatchOnlinePage() {
             <div className="flex aspect-video flex-col items-center justify-center gap-4 p-8 text-center">
               <PlayCircle className="h-14 w-14 text-gold-400" />
               <h2 className="font-display text-2xl font-semibold">Join Us Live</h2>
-              <p className="text-navy-200">Every Sunday at 10:00 AM</p>
-              <Button variant="primary">Watch Live</Button>
+              <p className="text-navy-200">Every Sunday at 10:00 AM · Streamed live on Facebook</p>
+              <Button href={facebookUrl} target="_blank" rel="noopener noreferrer" variant="primary">
+                Watch on Facebook
+              </Button>
             </div>
           )}
         </div>

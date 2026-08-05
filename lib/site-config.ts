@@ -9,16 +9,16 @@ export const siteConfig = {
     line2: "90471 Nürnberg, Germany",
     full: "Thomas-Mann-Straße 60, 90471 Nürnberg, Germany",
   },
-  phone: "+4915142024914",
+  phone: "+49 162 1234567",
   email: "info@christembassy-nuernberg.de",
   serviceTimes: [
     { label: "Sunday Service", time: "10:00 AM" },
-    { label: "Midweek Service", time: "6:00 PM (Wed)" },
+    { label: "Midweek Service", time: "7:00 PM (Wed)" },
   ],
   social: {
     youtube: "https://youtube.com",
     instagram: "https://instagram.com",
-    facebook: "https://www.facebook.com/cechurchnurnberg",
+    facebook: "https://facebook.com",
   },
   bank: {
     accountName: "Christ Embassy Nürnberg",

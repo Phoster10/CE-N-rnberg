@@ -94,7 +94,7 @@ export default async function GivePage() {
               </span>
             </div>
             <p className="mt-1 text-sm text-navy-500">Give quickly and securely online.</p>
-            <Button href={giveUrl} className="mt-6 w-full">
+            <Button href={giveUrl} target="_blank" rel="noopener noreferrer" className="mt-6 w-full">
               Give Now
             </Button>
             <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-navy-400">

@@ -47,7 +47,7 @@ export default async function VisitPage() {
 
           <div className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
             {[
-              { icon: TrainFront, label: "By U-Bahn", sub: "U1 to Scharfeiterring, 13 min walk" },
+              { icon: TrainFront, label: "By U-Bahn", sub: "U2 to Schweinau, 5 min walk" },
               { icon: Bus, label: "By Bus", sub: "Bus 63/67 · Lehrerstraße Stop" },
               { icon: Car, label: "By Car", sub: "Free parking available" },
               { icon: MapPin, label: "Address", sub: address2 },

@@ -25,10 +25,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
   href?: string;
+  target?: string;
+  rel?: string;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", href, children, ...props }, ref) => {
+  ({ className, variant = "primary", size = "md", href, target, rel, children, ...props }, ref) => {
     const classes = cn(
       "inline-flex items-center justify-center gap-2 rounded-full transition-all duration-200",
       variantClasses[variant],
@@ -38,7 +40,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (href) {
       return (
-        <Link href={href} className={classes}>
+        <Link href={href} className={classes} target={target} rel={rel}>
           {children}
         </Link>
       );
