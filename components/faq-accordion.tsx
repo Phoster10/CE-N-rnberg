@@ -1,27 +1,57 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export default function FaqAccordion({ faqs }: { faqs: { q: string; a: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="mt-6 space-y-3">
-      {faqs.map((f, i) => (
-        <div key={f.q} className="overflow-hidden rounded-xl border border-navy-100">
-          <button
-            className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-navy-900"
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            aria-expanded={openIndex === i}
-          >
-            {f.q}
-            <ChevronDown className={cn("h-4 w-4 transition-transform", openIndex === i && "rotate-180")} />
-          </button>
-          {openIndex === i && <p className="px-5 pb-4 text-sm text-navy-500">{f.a}</p>}
-        </div>
-      ))}
+    <div className="mt-8 divide-y divide-navy-100 border-y border-navy-100">
+      {faqs.map((f, i) => {
+        const open = openIndex === i;
+        return (
+          <div key={f.q}>
+            <button
+              className="group flex w-full items-center justify-between gap-6 py-6 text-left"
+              onClick={() => setOpenIndex(open ? null : i)}
+              aria-expanded={open}
+            >
+              <span
+                className={cn(
+                  "font-display text-xl font-medium transition-colors",
+                  open ? "text-navy-900" : "text-navy-700 group-hover:text-navy-900"
+                )}
+              >
+                {f.q}
+              </span>
+              <span
+                className={cn(
+                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300",
+                  open ? "rotate-45 bg-gold-gradient text-navy-950" : "bg-navy-50 text-navy-700"
+                )}
+              >
+                <Plus className="h-4 w-4" />
+              </span>
+            </button>
+            <AnimatePresence initial={false}>
+              {open && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <p className="max-w-xl pb-6 leading-relaxed text-navy-500">{f.a}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
     </div>
   );
 }

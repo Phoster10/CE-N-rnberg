@@ -5,7 +5,7 @@ Tailwind CSS, Framer Motion, and Supabase (Auth, Postgres, Storage).
 
 ## 1. Set up Supabase
 
-1. Create a project at https://supabase.com.
+1. Create a project at https://supabase.com. db password: EC5oKIhF7KSzcZY4
 2. In the SQL Editor, run the entire contents of `sql/schema.sql`. This creates
    every table, Row-Level Security policy, and the `public-media` storage bucket —
    including the "full site-wide editability" tables added at the bottom of the

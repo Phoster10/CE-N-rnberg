@@ -34,16 +34,30 @@ export const siteConfig = {
     "https://www.google.com/maps/dir/?api=1&destination=Thomas-Mann-Stra%C3%9Fe+60,+90471+N%C3%BCrnberg,+Germany",
 } as const;
 
-export const mainNav = [
+export type NavLink = { label: string; href: string; description?: string };
+export type NavItem = NavLink | { label: string; children: NavLink[] };
+
+export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Ministries", href: "/ministries" },
+  {
+    label: "Connect",
+    children: [
+      { label: "About Us", href: "/about", description: "Our story, vision and beliefs" },
+      { label: "New Here?", href: "/new-here", description: "What to expect on your first visit" },
+      { label: "Visit Us", href: "/visit", description: "Service times, location & directions" },
+      { label: "Ministries", href: "/ministries", description: "Find your place to grow and serve" },
+    ],
+  },
   { label: "Events", href: "/events" },
-  { label: "Watch Online", href: "/watch" },
-  { label: "Rhapsody of Realities", href: "/rhapsody" },
-  { label: "Testimonies", href: "/testimonies" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "New Here", href: "/new-here" },
-  { label: "Give", href: "/give" },
+  {
+    label: "Media",
+    children: [
+      { label: "Watch Online", href: "/watch", description: "Join our services live from anywhere" },
+      { label: "Rhapsody of Realities", href: "/rhapsody", description: "Today's daily devotional" },
+      { label: "Testimonies", href: "/testimonies", description: "Stories of God's goodness" },
+      { label: "Gallery", href: "/gallery", description: "Moments from our church family" },
+    ],
+  },
+  { label: "Prayer", href: "/prayer" },
   { label: "Contact", href: "/contact" },
 ];

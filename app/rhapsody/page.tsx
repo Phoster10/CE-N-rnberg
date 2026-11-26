@@ -1,8 +1,10 @@
 import { format } from "date-fns";
-import { BookOpen } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import PageHero from "@/components/page-hero";
+import Reveal from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { getTodayRhapsody } from "@/lib/data";
+import { stockImages } from "@/lib/images";
 
 export const metadata = { title: "Rhapsody of Realities" };
 
@@ -18,27 +20,57 @@ export default async function RhapsodyPage() {
 
   return (
     <>
-      <PageHero title="Rhapsody of Realities" crumbs={[{ label: "Home", href: "/" }, { label: "Rhapsody of Realities" }]} />
-      <section className="section grid grid-cols-1 gap-10 py-20 lg:grid-cols-3">
-        <div className="flex flex-col items-center rounded-2xl bg-navy-gradient p-8 text-center text-white shadow-soft">
-          <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/10 text-gold-400">
-            <BookOpen className="h-7 w-7" />
-          </span>
-          <p className="mt-4 font-display text-lg font-semibold">Rhapsody of Realities</p>
-          <p className="mt-1 text-sm text-navy-300">Daily devotional by Pastor Chris</p>
-        </div>
+      <PageHero
+        eyebrow="Daily Devotional"
+        title="Rhapsody of Realities"
+        subtitle="Start every day with a fresh word from God's heart, by Pastor Chris Oyakhilome."
+        image={entry?.cover_image_url || stockImages.bible}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Rhapsody of Realities" }]}
+      />
+      <section className="section grid grid-cols-1 gap-12 py-24 lg:grid-cols-12 lg:py-32">
+        <Reveal className="lg:col-span-4">
+          <div className="sticky top-28 overflow-hidden rounded-4xl bg-navy-gradient p-8 text-white shadow-lift">
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-gradient text-navy-950 shadow-glow">
+              <BookOpen className="h-6 w-6" />
+            </span>
+            <p className="mt-8 text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">Today</p>
+            <p className="mt-2 font-display text-5xl font-semibold leading-none">{format(date, "d")}</p>
+            <p className="mt-2 text-lg text-navy-200">{format(date, "EEEE, MMMM yyyy")}</p>
+            <div className="my-8 h-px bg-white/10" />
+            <p className="text-sm leading-relaxed text-navy-300">
+              Rhapsody of Realities is a daily devotional read by millions around the world in thousands of languages.
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="lg:col-span-2">
-          <p className="text-xs font-semibold uppercase tracking-wider text-gold-600">
-            Today&apos;s Rhapsody · {format(date, "EEEE, d MMMM yyyy")}
-          </p>
-          <h2 className="container-heading mt-3 text-left">{title}</h2>
-          <p className="mt-2 text-sm font-semibold text-navy-600">{scripture}</p>
-          <p className="mt-4 leading-relaxed text-navy-600">{body}</p>
-          <Button href="#" variant="secondary" className="mt-6">
-            Read More
-          </Button>
-        </div>
+        <Reveal delay={0.1} className="lg:col-span-8">
+          <article className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">Today&apos;s Rhapsody</p>
+            <h2 className="mt-4 text-balance font-display text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+              {title}
+            </h2>
+            <p className="mt-4 inline-flex rounded-full bg-gold-50 px-4 py-1.5 text-sm font-semibold text-gold-700 ring-1 ring-gold-200">
+              {scripture}
+            </p>
+            <div className="mt-8 space-y-5 text-lg leading-[1.85] text-navy-700 first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-7xl first-letter:font-semibold first-letter:leading-[0.85] first-letter:text-gold-600">
+              {body
+                .split("\n")
+                .filter(Boolean)
+                .map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+            </div>
+            <Button
+              href="https://rhapsodyofrealities.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              className="mt-10"
+            >
+              Read more on Rhapsody of Realities <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </article>
+        </Reveal>
       </section>
     </>
   );

@@ -56,22 +56,33 @@ export default function CountdownNextService({ services }: { services: ServiceTi
 
   const units = [
     { value: remaining?.days ?? 0, label: "Days" },
-    { value: remaining?.hours ?? 0, label: "Hours" },
-    { value: remaining?.minutes ?? 0, label: "Minutes" },
-    { value: remaining?.seconds ?? 0, label: "Seconds" },
+    { value: remaining?.hours ?? 0, label: "Hrs" },
+    { value: remaining?.minutes ?? 0, label: "Min" },
+    { value: remaining?.seconds ?? 0, label: "Sec" },
   ];
 
   return (
-    <div className="glass-light flex flex-col gap-4 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-wider text-navy-500">Next Service</p>
-        <p className="font-display text-lg font-semibold text-navy-900">{label}</p>
+    <div className="glass flex flex-col gap-5 rounded-3xl p-5 sm:flex-row sm:items-center sm:gap-8 sm:p-6">
+      <div className="flex items-center gap-3">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-400 opacity-75" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold-400" />
+        </span>
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-300">Next Service</p>
+          <p className="font-display text-lg font-medium text-white">{label}</p>
+        </div>
       </div>
-      <div className="flex gap-3" role="timer" aria-live="off">
-        {units.map((u) => (
-          <div key={u.label} className="flex w-16 flex-col items-center rounded-xl bg-navy-900 py-2.5 text-white">
-            <span className="font-display text-xl font-bold tabular-nums">{String(u.value).padStart(2, "0")}</span>
-            <span className="text-[10px] uppercase tracking-wide text-navy-300">{u.label}</span>
+      <div className="flex gap-2 sm:gap-3" role="timer" aria-live="off" aria-label={`Countdown to ${label}`}>
+        {units.map((u, i) => (
+          <div key={u.label} className="flex items-center gap-2 sm:gap-3">
+            <div className="flex w-14 flex-col items-center rounded-2xl bg-white/[0.06] py-2.5 ring-1 ring-white/10 sm:w-16">
+              <span className="font-display text-2xl font-semibold tabular-nums text-white">
+                {String(u.value).padStart(2, "0")}
+              </span>
+              <span className="text-[10px] font-medium uppercase tracking-widest text-navy-300">{u.label}</span>
+            </div>
+            {i < units.length - 1 && <span className="hidden text-navy-400 sm:block">:</span>}
           </div>
         ))}
       </div>

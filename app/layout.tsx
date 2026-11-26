@@ -1,27 +1,32 @@
-import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { siteConfig } from "@/lib/site-config";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const sans = Plus_Jakarta_Sans({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+const display = Fraunces({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-display",
   display: "swap",
-  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT"],
 });
 
 // This app reads from Supabase on nearly every page (server-side, per-request),
 // and the admin dashboard always needs a fresh auth check — so the whole app
 // opts out of static prerendering rather than caching stale church data.
 export const dynamic = "force-dynamic";
+
+export const viewport: Viewport = {
+  themeColor: "#0a1230",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -30,6 +35,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: ["Christ Embassy", "Nürnberg", "Nuremberg", "church", "Kirche", "LoveWorld", "Pastor Chris"],
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
@@ -38,6 +44,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
   robots: { index: true, follow: true },
 };
 
@@ -45,7 +56,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main-content"

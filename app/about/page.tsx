@@ -1,7 +1,9 @@
+import { ArrowRight, Compass, Target, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Compass, Target, HeartHandshake } from "lucide-react";
-import PageHero from "@/components/page-hero";
+import PageHero, { HeroGlow } from "@/components/page-hero";
+import Reveal from "@/components/motion/reveal";
 import { getAboutContent } from "@/lib/data";
+import { stockImages } from "@/lib/images";
 
 export const metadata = { title: "About Us" };
 
@@ -26,65 +28,77 @@ export default async function AboutPage() {
 
   return (
     <>
-      <PageHero title="About Us" crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
+      <PageHero
+        eyebrow="Our Story"
+        title="A family of faith in the heart of Nürnberg"
+        subtitle="Rooted in God's Word, alive with His presence, and reaching our city with His love."
+        image={content?.congregation_image_url || stockImages.congregation}
+        crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
+      />
 
-      <section className="section grid grid-cols-1 gap-12 py-20 lg:grid-cols-2 lg:items-center">
-        <div>
+      <section className="section grid grid-cols-1 gap-16 py-24 lg:grid-cols-2 lg:items-center lg:py-32">
+        <Reveal>
           <span className="eyebrow">Who We Are</span>
-          <h2 className="container-heading mt-3 text-left">
-            A dynamic, Christ-centered church family
+          <h2 className="container-heading mt-4">
+            A dynamic, <em className="text-gold-600">Christ-centered</em> church family
           </h2>
-          {whoWeAre.split("\n").filter(Boolean).map((p, i) => (
-            <p key={i} className="mt-4 text-navy-500">
-              {p}
-            </p>
-          ))}
-          <Button href="/new-here" variant="secondary" className="mt-6">
-            Learn More About Us
+          {whoWeAre
+            .split("\n")
+            .filter(Boolean)
+            .map((p, i) => (
+              <p key={i} className="mt-6 text-lg leading-relaxed text-navy-500">
+                {p}
+              </p>
+            ))}
+          <Button href="/new-here" variant="secondary" className="mt-10">
+            Plan Your First Visit <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </Button>
-        </div>
-        <div className="overflow-hidden rounded-2xl shadow-soft">
-          {content?.portrait_image_url ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={content.portrait_image_url} alt="" className="aspect-[4/3] w-full object-cover" />
-          ) : (
-            <div className="flex aspect-[4/3] items-center justify-center bg-navy-gradient text-gold-400">
-              <span className="font-display text-2xl">Pastor&apos;s Portrait</span>
-            </div>
-          )}
-        </div>
+        </Reveal>
+        <Reveal delay={0.15} className="relative">
+          <div className="absolute -inset-4 -z-10 rotate-2 rounded-4xl bg-gold-gradient opacity-20" />
+          <div className="overflow-hidden rounded-4xl shadow-lift">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={content?.portrait_image_url || stockImages.fellowship}
+              alt=""
+              className="aspect-[4/5] w-full object-cover"
+            />
+          </div>
+        </Reveal>
       </section>
 
-      <section className="bg-navy-50/60 py-20">
-        <div className="section grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {valueCards.map((v) => (
-            <div key={v.title} className="rounded-2xl bg-white p-6 text-center shadow-card">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-navy-50 text-navy-800">
-                <v.icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-4 font-display text-lg font-semibold text-navy-900">{v.title}</h3>
-              <p className="mt-2 text-sm text-navy-500">{v.text}</p>
-            </div>
+      <section className="grain relative isolate overflow-hidden bg-navy-950 py-24 text-white lg:py-32">
+        <HeroGlow />
+        <div className="section relative grid grid-cols-1 gap-6 md:grid-cols-3">
+          {valueCards.map((v, i) => (
+            <Reveal key={v.title} delay={0.1 * i}>
+              <div className="group h-full rounded-4xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-gold-500/40">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-gradient text-navy-950 shadow-glow">
+                  <v.icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-8 font-display text-2xl font-semibold">{v.title}</h3>
+                <p className="mt-3 text-lg leading-relaxed text-navy-200">{v.text}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="section grid grid-cols-1 gap-12 py-20 lg:grid-cols-2 lg:items-center">
-        <div className="order-2 overflow-hidden rounded-2xl shadow-soft lg:order-1">
-          {content?.congregation_image_url ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={content.congregation_image_url} alt="" className="aspect-[4/3] w-full object-cover" />
-          ) : (
-            <div className="flex aspect-[4/3] items-center justify-center bg-navy-900 text-gold-400">
-              <span className="font-display text-2xl">Congregation in Worship</span>
-            </div>
-          )}
-        </div>
-        <div className="order-1 lg:order-2">
+      <section className="section grid grid-cols-1 gap-16 py-24 lg:grid-cols-2 lg:items-center lg:py-32">
+        <Reveal className="order-2 lg:order-1">
+          <div className="overflow-hidden rounded-4xl shadow-lift">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={stockImages.bible} alt="An open Bible" className="aspect-[4/3] w-full object-cover" />
+          </div>
+        </Reveal>
+        <Reveal delay={0.15} className="order-1 lg:order-2">
           <span className="eyebrow">Our Faith</span>
-          <h2 className="container-heading mt-3 text-left">What We Believe</h2>
-          <p className="mt-4 text-navy-500">{believe}</p>
-        </div>
+          <h2 className="container-heading mt-4">What we believe</h2>
+          <p className="mt-6 text-lg leading-relaxed text-navy-500">{believe}</p>
+          <Button href="/contact" variant="light" className="mt-10">
+            Have a question? Talk to us
+          </Button>
+        </Reveal>
       </section>
     </>
   );
