@@ -1,6 +1,7 @@
 import { ArrowUpRight, Facebook, PlayCircle, Video, Youtube } from "lucide-react";
 import PageHero, { HeroGlow } from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
+import Photo from "@/components/photo";
 import { Button } from "@/components/ui/button";
 import { getWatchOnlineSettings, getSiteSettings } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
@@ -51,8 +52,7 @@ export default async function WatchOnlinePage() {
               </>
             ) : (
               <div className="relative flex aspect-video min-h-[22rem] flex-col items-center justify-center gap-5 p-8 text-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={stockImages.worship} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-30" />
+                <Photo src={stockImages.worship} alt="" fill sizes="(min-width: 1280px) 1216px, 100vw" className="-z-20 object-cover opacity-30" />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/40" />
                 <HeroGlow />
                 <span className="flex h-24 w-24 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 backdrop-blur-md">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { revalidateSite } from "@/app/admin/revalidate-action";
 import { Plus, Pencil, Trash2, X, Loader2, ImageOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -83,7 +84,10 @@ export default function AdminCrudPanel({
     if (!confirm("Delete this item? This cannot be undone.")) return;
     const { error } = await supabase.from(table).delete().eq("id", row.id as string);
     if (error) setError(error.message);
-    else load();
+    else {
+      load();
+      await revalidateSite();
+    }
   };
 
   const handleUpload = async (file: File, field: FieldConfig): Promise<string | null> => {
@@ -159,6 +163,7 @@ export default function AdminCrudPanel({
     setEditing(null);
     setRemovedImageKeys(new Set());
     load();
+    await revalidateSite();
   };
 
   return (

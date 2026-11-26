@@ -20,6 +20,9 @@ import {
 import { logoutAction } from "@/app/admin/login/actions";
 import Logo from "@/components/logo";
 
+// The dashboard is always rendered per request, never cached.
+export const dynamic = "force-dynamic";
+
 const navItems = [
   { label: "Overview", href: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Homepage Content", href: "/admin/dashboard/homepage", icon: Home },

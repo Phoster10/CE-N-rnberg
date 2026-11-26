@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { revalidateSite } from "@/app/admin/revalidate-action";
 import { Loader2, Save, ImageOff } from "lucide-react";
 import type { FieldConfig } from "@/components/admin/admin-crud-panel";
 import { cn } from "@/lib/utils";
@@ -120,6 +121,7 @@ export default function AdminSingleRowForm({
     setSavedAt(Date.now());
     setRemovedImageKeys(new Set());
     load();
+    await revalidateSite();
   };
 
   if (loading) {

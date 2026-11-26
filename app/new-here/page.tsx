@@ -1,6 +1,7 @@
 import { ArrowRight, Baby, Clock, Coffee, MapPin, Music, Shirt } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
+import Photo from "@/components/photo";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/card";
 import FaqAccordion from "@/components/faq-accordion";
@@ -73,8 +74,14 @@ export default async function NewHerePage() {
 
         <Reveal delay={0.1} className="lg:sticky lg:top-28">
           <div className="overflow-hidden rounded-4xl bg-navy-950 text-white shadow-lift">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={content?.image_url || stockImages.congregation} alt="" className="h-64 w-full object-cover" />
+            <Photo
+              src={content?.image_url || stockImages.congregation}
+              alt=""
+              width={800}
+              height={512}
+              sizes="(min-width: 1024px) 600px, 100vw"
+              className="h-64 w-full object-cover"
+            />
             <div className="p-8 sm:p-10">
               <h3 className="font-display text-3xl font-semibold">Plan your visit</h3>
               <p className="mt-3 text-navy-200">

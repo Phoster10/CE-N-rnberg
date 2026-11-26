@@ -2,6 +2,7 @@ import { CalendarDays, Clock, ExternalLink, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
+import Photo from "@/components/photo";
 import { getAllEvents } from "@/lib/data";
 import { stockImages } from "@/lib/images";
 
@@ -36,11 +37,12 @@ export default async function EventsPage() {
                 <article className="group grid grid-cols-1 overflow-hidden rounded-4xl border border-navy-100/70 bg-white shadow-card transition-all duration-500 hover:shadow-lift md:grid-cols-[auto_1fr_auto]">
                   <div className="relative flex min-h-[10rem] items-center justify-center overflow-hidden bg-navy-gradient px-10 py-8 text-white md:w-64">
                     {e.poster_url && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Photo
                         src={e.poster_url}
                         alt=""
-                        className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                        fill
+                        sizes="(min-width: 768px) 256px, 100vw"
+                        className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
                       />
                     )}
                     <div className="relative text-center">

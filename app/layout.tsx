@@ -6,23 +6,22 @@ import Footer from "@/components/footer";
 import { siteConfig } from "@/lib/site-config";
 
 const sans = Plus_Jakarta_Sans({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
 const display = Fraunces({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
   style: ["normal", "italic"],
-  axes: ["opsz", "SOFT"],
+  axes: ["opsz"],
 });
 
-// This app reads from Supabase on nearly every page (server-side, per-request),
-// and the admin dashboard always needs a fresh auth check — so the whole app
-// opts out of static prerendering rather than caching stale church data.
-export const dynamic = "force-dynamic";
+// Public pages are served from cache and rebuilt in the background at most once
+// a minute. Saving in the admin dashboard refreshes them immediately.
+export const revalidate = 60;
 
 export const viewport: Viewport = {
   themeColor: "#0a1230",

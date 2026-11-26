@@ -60,6 +60,14 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(24px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "menu-in": {
+          from: { opacity: "0", transform: "translateY(-12px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "menu-item": {
+          from: { opacity: "0", transform: "translateX(-12px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
         aurora: {
           "0%, 100%": { transform: "translate(0, 0) scale(1)" },
           "33%": { transform: "translate(6%, -4%) scale(1.1)" },
@@ -85,6 +93,8 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "menu-in": "menu-in 0.25s ease-out both",
+        "menu-item": "menu-item 0.3s ease-out both",
         aurora: "aurora 18s ease-in-out infinite",
         "aurora-slow": "aurora 26s ease-in-out infinite reverse",
         marquee: "marquee 40s linear infinite",

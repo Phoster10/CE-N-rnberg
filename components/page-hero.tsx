@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import HeroIn from "@/components/motion/hero-in";
+import Photo from "@/components/photo";
 
 /**
  * Dark, atmospheric header used at the top of every inner page. The navbar
@@ -23,8 +24,7 @@ export default function PageHero({
     <section className="grain relative isolate overflow-hidden bg-navy-950 pb-20 pt-40 text-white sm:pb-24 sm:pt-48">
       {image && (
         <>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image} alt="" className="absolute inset-0 -z-20 h-full w-full animate-slow-zoom object-cover" />
+          <Photo src={image} alt="" fill priority sizes="100vw" className="-z-20 animate-slow-zoom object-cover" />
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/85 via-navy-950/75 to-navy-950" />
         </>
       )}

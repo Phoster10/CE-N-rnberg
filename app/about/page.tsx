@@ -2,6 +2,7 @@ import { ArrowRight, Compass, Target, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PageHero, { HeroGlow } from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
+import Photo from "@/components/photo";
 import { getAboutContent } from "@/lib/data";
 import { stockImages } from "@/lib/images";
 
@@ -57,10 +58,12 @@ export default async function AboutPage() {
         <Reveal delay={0.15} className="relative">
           <div className="absolute -inset-4 -z-10 rotate-2 rounded-4xl bg-gold-gradient opacity-20" />
           <div className="overflow-hidden rounded-4xl shadow-lift">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Photo
               src={content?.portrait_image_url || stockImages.fellowship}
               alt=""
+              width={800}
+              height={1000}
+              sizes="(min-width: 1024px) 600px, 100vw"
               className="aspect-[4/5] w-full object-cover"
             />
           </div>
@@ -87,8 +90,7 @@ export default async function AboutPage() {
       <section className="section grid grid-cols-1 gap-16 py-24 lg:grid-cols-2 lg:items-center lg:py-32">
         <Reveal className="order-2 lg:order-1">
           <div className="overflow-hidden rounded-4xl shadow-lift">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={stockImages.bible} alt="An open Bible" className="aspect-[4/3] w-full object-cover" />
+            <Photo src={stockImages.bible} alt="An open Bible" width={800} height={600} sizes="(min-width: 1024px) 600px, 100vw" className="aspect-[4/3] w-full object-cover" />
           </div>
         </Reveal>
         <Reveal delay={0.15} className="order-1 lg:order-2">

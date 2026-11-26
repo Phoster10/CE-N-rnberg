@@ -22,6 +22,7 @@ import { SectionHeading } from "@/components/ui/card";
 import CountdownNextService from "@/components/countdown-next-service";
 import Reveal from "@/components/motion/reveal";
 import HeroIn from "@/components/motion/hero-in";
+import Photo from "@/components/photo";
 import { HeroGlow } from "@/components/page-hero";
 import { stockImages } from "@/lib/images";
 import {
@@ -100,11 +101,13 @@ export default async function HomePage() {
     <>
       {/* ───────────── HERO ───────────── */}
       <section className="grain relative isolate flex min-h-[100svh] items-end overflow-hidden bg-navy-950 text-white">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Photo
           src={content?.hero_image_url || stockImages.worship}
           alt=""
-          className="absolute inset-0 -z-20 h-full w-full animate-slow-zoom object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 animate-slow-zoom object-cover"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/40" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-950/80 via-navy-950/20 to-transparent" />
@@ -205,16 +208,17 @@ export default async function HomePage() {
       <section className="section grid grid-cols-1 items-center gap-16 py-24 lg:grid-cols-2 lg:py-32">
         <Reveal className="relative order-2 lg:order-1">
           <div className="relative mr-10 overflow-hidden rounded-4xl shadow-lift sm:mr-20">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Photo
               src={content?.welcome_image_url || stockImages.congregation}
               alt="Our church family gathered for worship"
+              width={800}
+              height={1000}
+              sizes="(min-width: 1024px) 600px, 100vw"
               className="aspect-[4/5] w-full object-cover"
             />
           </div>
           <div className="absolute -bottom-10 right-0 w-1/2 overflow-hidden rounded-3xl border-[6px] border-white shadow-lift">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={stockImages.fellowship} alt="" className="aspect-square w-full object-cover" />
+            <Photo src={stockImages.fellowship} alt="" width={600} height={600} sizes="(min-width: 1024px) 300px, 50vw" className="aspect-square w-full object-cover" />
           </div>
           <div className="absolute -left-4 top-10 flex items-center gap-3 rounded-2xl bg-white p-4 pr-6 shadow-lift sm:-left-8">
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold-gradient text-navy-950">
@@ -350,11 +354,12 @@ export default async function HomePage() {
                   >
                     <div className="relative h-56 overflow-hidden bg-navy-gradient">
                       {e.poster_url ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
+                        <Photo
                           src={e.poster_url}
                           alt=""
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          fill
+                          sizes="(min-width: 768px) 400px, 100vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       ) : (
                         <>
@@ -392,11 +397,12 @@ export default async function HomePage() {
             href="/watch"
             className="group relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-4xl bg-navy-950 p-8 text-white shadow-lift sm:p-10"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Photo
               src={stockImages.praise}
               alt=""
-              className="absolute inset-0 -z-20 h-full w-full object-cover opacity-70 transition-transform duration-1000 group-hover:scale-105"
+              fill
+              sizes="(min-width: 1024px) 740px, 100vw"
+              className="-z-20 object-cover opacity-70 transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-950 via-navy-950/60 to-transparent" />
             <span className="absolute right-8 top-8 flex h-20 w-20 items-center justify-center rounded-full bg-white/10 backdrop-blur-md ring-1 ring-white/20 transition-all duration-500 group-hover:scale-110 group-hover:bg-gold-500 group-hover:text-navy-950">
@@ -476,11 +482,12 @@ export default async function HomePage() {
                 >
                   {m.image_url && (
                     <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Photo
                         src={m.image_url}
                         alt=""
-                        className="absolute inset-0 h-full w-full object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
+                        fill
+                        sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover opacity-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/50 to-transparent" />
                     </>
@@ -584,8 +591,7 @@ export default async function HomePage() {
 
       {/* ───────────── FINAL CTA ───────────── */}
       <section className="grain relative isolate overflow-hidden bg-navy-950 py-28 text-center text-white sm:py-36">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={stockImages.sanctuary} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-30" />
+        <Photo src={stockImages.sanctuary} alt="" fill sizes="100vw" className="-z-20 object-cover opacity-30" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/60 via-navy-950/80 to-navy-950" />
         <HeroGlow />
         <div className="section relative max-w-3xl">

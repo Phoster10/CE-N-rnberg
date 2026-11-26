@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export default function FaqAccordion({ faqs }: { faqs: { q: string; a: string }[] }) {
@@ -36,19 +35,16 @@ export default function FaqAccordion({ faqs }: { faqs: { q: string; a: string }[
                 <Plus className="h-4 w-4" />
               </span>
             </button>
-            <AnimatePresence initial={false}>
-              {open && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="overflow-hidden"
-                >
-                  <p className="max-w-xl pb-6 leading-relaxed text-navy-500">{f.a}</p>
-                </motion.div>
+            <div
+              className={cn(
+                "grid transition-all duration-300 ease-out",
+                open ? "visible grid-rows-[1fr] opacity-100" : "invisible grid-rows-[0fr] opacity-0"
               )}
-            </AnimatePresence>
+            >
+              <div className="overflow-hidden">
+                <p className="max-w-xl pb-6 leading-relaxed text-navy-500">{f.a}</p>
+              </div>
+            </div>
           </div>
         );
       })}

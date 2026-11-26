@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown, ArrowUpRight, Heart } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { mainNav, type NavItem, type NavLink } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/logo";
@@ -112,14 +111,11 @@ export default function Navbar() {
                     className={cn("h-3.5 w-3.5 transition-transform duration-300", openGroup === item.label && "rotate-180")}
                   />
                 </button>
-                <AnimatePresence>
-                  {openGroup === item.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3"
+                    <div
+                      className={cn(
+                        "absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3 transition-all duration-200 ease-out",
+                        openGroup === item.label ? "visible opacity-100" : "invisible translate-y-2 scale-[0.98] opacity-0"
+                      )}
                     >
                       <div className="overflow-hidden rounded-2xl border border-navy-100/70 bg-white p-2 shadow-lift">
                         {item.children.map((c) => (
@@ -141,9 +137,7 @@ export default function Navbar() {
                           </Link>
                         ))}
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    </div>
               </li>
             ) : (
               <li key={item.href}>
@@ -162,10 +156,7 @@ export default function Navbar() {
                 >
                   {item.label}
                   {isActive(item.href) && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-gold-500"
-                    />
+                    <span className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-gold-500" />
                   )}
                 </Link>
               </li>
@@ -202,23 +193,14 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile navigation */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="h-[calc(100dvh-72px)] overflow-y-auto border-t border-navy-100 bg-white lg:hidden"
-          >
+      {open && (
+          <div className="h-[calc(100dvh-72px)] animate-menu-in overflow-y-auto border-t border-navy-100 bg-white lg:hidden">
             <div className="flex flex-col px-6 pb-10 pt-4">
               {mainNav.map((item, i) => (
-                <motion.div
+                <div
                   key={item.label}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i }}
-                  className="border-b border-navy-50 py-2"
+                  style={{ animationDelay: `${0.04 * i}s` }}
+                  className="animate-menu-item border-b border-navy-50 py-2"
                 >
                   {isGroup(item) ? (
                     <>
@@ -236,7 +218,7 @@ export default function Navbar() {
                       {item.label}
                     </MobileLink>
                   )}
-                </motion.div>
+                </div>
               ))}
               <div className="mt-6 grid grid-cols-2 gap-3">
                 <Button href="/give" variant="light">
@@ -247,9 +229,8 @@ export default function Navbar() {
                 </Button>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </header>
   );
 }

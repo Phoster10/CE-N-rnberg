@@ -1,6 +1,7 @@
 import { ArrowRight, Baby, BookOpen, GraduationCap, Mic2, Megaphone, Sparkles, Users, UserRound, Video } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
+import Photo from "@/components/photo";
 import { Button } from "@/components/ui/button";
 import { getMinistries } from "@/lib/data";
 import { stockImages } from "@/lib/images";
@@ -55,11 +56,12 @@ export default async function MinistriesPage() {
                 <article className="group flex h-full flex-col overflow-hidden rounded-4xl border border-navy-100/70 bg-white shadow-card transition-all duration-500 hover:-translate-y-2 hover:shadow-lift">
                   <div className="relative h-48 overflow-hidden bg-navy-gradient">
                     {m.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Photo
                         src={m.image_url}
                         alt=""
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        fill
+                        sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     ) : (
                       <>

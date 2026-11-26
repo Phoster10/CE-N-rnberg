@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import type {
   AboutContent,
   Announcement,
@@ -24,19 +25,19 @@ import type {
  */
 
 export async function getHomepageContent(): Promise<HomepageContent | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("homepage_content").select("*").limit(1).maybeSingle();
   return data as HomepageContent | null;
 }
 
 export async function getServiceTimes(): Promise<ServiceTime[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("service_times").select("*").order("day_of_week");
   return (data as ServiceTime[]) ?? [];
 }
 
 export async function getUpcomingEvents(limit = 3): Promise<Event[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("events")
     .select("*")
@@ -48,7 +49,7 @@ export async function getUpcomingEvents(limit = 3): Promise<Event[]> {
 }
 
 export async function getAllEvents(): Promise<Event[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("events")
     .select("*")
@@ -58,13 +59,13 @@ export async function getAllEvents(): Promise<Event[]> {
 }
 
 export async function getMinistries(): Promise<Ministry[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("ministries").select("*").order("sort_order");
   return (data as Ministry[]) ?? [];
 }
 
 export async function getTestimonies(limit?: number): Promise<Testimony[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase
     .from("testimonies")
     .select("*")
@@ -76,19 +77,19 @@ export async function getTestimonies(limit?: number): Promise<Testimony[]> {
 }
 
 export async function getGalleryAlbums(): Promise<GalleryAlbum[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("gallery_albums").select("*").order("created_at", { ascending: false });
   return (data as GalleryAlbum[]) ?? [];
 }
 
 export async function getGalleryItems(): Promise<GalleryItem[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("gallery_items").select("*").order("created_at", { ascending: false });
   return (data as GalleryItem[]) ?? [];
 }
 
 export async function getRhapsodyEntries(limit?: number): Promise<RhapsodyEntry[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase.from("rhapsody_entries").select("*").order("entry_date", { ascending: false });
   if (limit) query = query.limit(limit);
   const { data } = await query;
@@ -96,7 +97,7 @@ export async function getRhapsodyEntries(limit?: number): Promise<RhapsodyEntry[
 }
 
 export async function getTodayRhapsody(): Promise<RhapsodyEntry | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("rhapsody_entries")
     .select("*")
@@ -107,31 +108,31 @@ export async function getTodayRhapsody(): Promise<RhapsodyEntry | null> {
 }
 
 export async function getActiveAnnouncements(): Promise<Announcement[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("announcements").select("*").eq("is_active", true);
   return (data as Announcement[]) ?? [];
 }
 
 export async function getWatchOnlineSettings(): Promise<WatchOnlineSettings | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("watch_online_settings").select("*").limit(1).maybeSingle();
   return data as WatchOnlineSettings | null;
 }
 
 export async function getAboutContent(): Promise<AboutContent | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("about_content").select("*").limit(1).maybeSingle();
   return data as AboutContent | null;
 }
 
 export async function getNewHereContent(): Promise<NewHereContent | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("new_here_content").select("*").limit(1).maybeSingle();
   return data as NewHereContent | null;
 }
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("site_settings").select("*").limit(1).maybeSingle();
   return data as SiteSettings | null;
 }
