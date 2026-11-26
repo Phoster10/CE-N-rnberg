@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, Flame, ChevronDown, ArrowUpRight, Heart } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowUpRight, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { mainNav, type NavItem, type NavLink } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/logo";
 import { cn } from "@/lib/utils";
 
 const isGroup = (item: NavItem): item is { label: string; children: NavLink[] } => "children" in item;
@@ -65,8 +66,8 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="Christ Embassy Nürnberg — home">
-          <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-navy-gradient text-gold-400 shadow-soft ring-1 ring-gold-400/30 transition-transform duration-500 group-hover:rotate-[8deg]">
-            <Flame className="h-5 w-5" strokeWidth={2} />
+          <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-navy-gradient shadow-soft ring-1 ring-gold-400/30 transition-transform duration-500 group-hover:rotate-[8deg]">
+            <Logo className="h-8 w-8" />
           </span>
           <span className="leading-none">
             <span

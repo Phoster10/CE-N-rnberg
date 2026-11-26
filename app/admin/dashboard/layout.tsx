@@ -13,12 +13,12 @@ import {
   HandHeart,
   MessageSquare,
   LogOut,
-  Flame,
   Info,
   DoorOpen,
   Settings,
 } from "lucide-react";
 import { logoutAction } from "@/app/admin/login/actions";
+import Logo from "@/components/logo";
 
 const navItems = [
   { label: "Overview", href: "/admin/dashboard", icon: LayoutDashboard },
@@ -43,8 +43,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex min-h-screen bg-navy-50/40">
       <aside className="hidden w-64 shrink-0 flex-col border-r border-navy-100 bg-white lg:flex">
         <div className="flex items-center gap-2.5 border-b border-navy-100 px-6 py-5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-gradient text-gold-400">
-            <Flame className="h-4 w-4" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-gradient">
+            <Logo className="h-7 w-7" />
           </span>
           <span className="font-display text-sm font-semibold text-navy-900">Admin Dashboard</span>
         </div>

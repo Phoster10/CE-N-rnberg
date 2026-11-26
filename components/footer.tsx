@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Youtube, Instagram, Facebook, MapPin, Mail, Phone, Flame, Clock, ArrowUpRight } from "lucide-react";
+import { Youtube, Instagram, Facebook, MapPin, Mail, Phone, Clock, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { getServiceTimes, getSiteSettings } from "@/lib/data";
+import Logo from "@/components/logo";
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -72,8 +73,8 @@ export default async function Footer() {
       <div className="section grid grid-cols-2 gap-10 py-16 md:grid-cols-12">
         <div className="col-span-2 md:col-span-4">
           <Link href="/" className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-gold-400 ring-1 ring-gold-400/30">
-              <Flame className="h-5 w-5" />
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-gold-400/30">
+              <Logo className="h-8 w-8" />
             </span>
             <span className="leading-none">
               <span className="block font-display text-lg font-semibold text-white">Christ Embassy</span>
