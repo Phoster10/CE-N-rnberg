@@ -24,7 +24,7 @@ import Reveal from "@/components/motion/reveal";
 import HeroIn from "@/components/motion/hero-in";
 import Photo from "@/components/photo";
 import { HeroGlow } from "@/components/page-hero";
-import { stockImages } from "@/lib/images";
+import { ministryImage, stockImages } from "@/lib/images";
 import {
   getActiveAnnouncements,
   getHomepageContent,
@@ -93,7 +93,9 @@ export default async function HomePage() {
         ];
 
   const eventList = events.length > 0 ? events : fallbackEvents;
-  const ministryList = (ministries.length > 0 ? ministries : fallbackMinistries).slice(0, 4);
+  const ministryList = (ministries.length > 0 ? ministries : fallbackMinistries)
+    .slice(0, 4)
+    .map((m) => ({ ...m, image_url: m.image_url || ministryImage(m.name) }));
   const testimonyList = testimonies.length > 0 ? testimonies : fallbackTestimonies;
   const isLive = watch?.is_live ?? false;
 
@@ -419,7 +421,7 @@ export default async function HomePage() {
               Can&apos;t make it in person? Join us live.
             </h3>
             <p className="mt-4 max-w-md text-navy-200">
-              Worship with us from anywhere in the world, every Sunday at 10:00.
+              Join us on Facebook or Zoom, Sundays at 10:00 and Wednesdays at 18:00.
             </p>
           </Link>
         </Reveal>

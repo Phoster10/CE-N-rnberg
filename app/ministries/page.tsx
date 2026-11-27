@@ -1,10 +1,10 @@
-import { ArrowRight, Baby, BookOpen, GraduationCap, Mic2, Megaphone, Sparkles, Users, UserRound, Video } from "lucide-react";
+import { ArrowRight, Baby, BookOpen, Mic2, Megaphone, Sparkles, Users, UserRound, Video } from "lucide-react";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
 import Photo from "@/components/photo";
 import { Button } from "@/components/ui/button";
 import { getMinistries } from "@/lib/data";
-import { stockImages } from "@/lib/images";
+import { ministryImage, stockImages } from "@/lib/images";
 
 export const metadata = { title: "Ministries" };
 
@@ -12,7 +12,6 @@ const fallback = [
   { id: "1", name: "Children's Ministry", description: "Raising children in the love and knowledge of God.", image_url: null },
   { id: "2", name: "Teens Ministry", description: "Empowering teenagers to live for Christ.", image_url: null },
   { id: "3", name: "Youth Ministry", description: "Building passionate young people for God.", image_url: null },
-  { id: "4", name: "Campus Ministry", description: "Reaching students on campuses.", image_url: null },
   { id: "5", name: "Men's Fellowship", description: "Building Godly men.", image_url: null },
   { id: "6", name: "Women's Fellowship", description: "Empowering women to fulfil their destiny.", image_url: null },
   { id: "7", name: "Choir", description: "Leading hearts in worship and praise.", image_url: null },
@@ -24,7 +23,6 @@ const fallback = [
 function iconFor(name: string) {
   const n = name.toLowerCase();
   if (n.includes("child") || n.includes("kid")) return Baby;
-  if (n.includes("campus") || n.includes("student")) return GraduationCap;
   if (n.includes("choir") || n.includes("music") || n.includes("worship")) return Mic2;
   if (n.includes("media")) return Video;
   if (n.includes("evangel") || n.includes("outreach")) return Megaphone;
@@ -51,27 +49,30 @@ export default async function MinistriesPage() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((m, i) => {
             const Icon = iconFor(m.name);
+            const image = m.image_url || ministryImage(m.name);
             return (
               <Reveal key={m.id} delay={0.06 * (i % 3)}>
                 <article className="group flex h-full flex-col overflow-hidden rounded-4xl border border-navy-100/70 bg-white shadow-card transition-all duration-500 hover:-translate-y-2 hover:shadow-lift">
-                  <div className="relative h-48 overflow-hidden bg-navy-gradient">
-                    {m.image_url ? (
-                      <Photo
-                        src={m.image_url}
-                        alt=""
-                        fill
-                        sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    ) : (
-                      <>
-                        <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold-500/20 blur-3xl" />
-                        <Icon className="absolute -bottom-4 -right-4 h-32 w-32 text-white/[0.06]" />
-                        <span className="absolute left-6 top-6 font-display text-6xl font-semibold text-white/10">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                      </>
-                    )}
+                  <div className="relative">
+                    <div className="relative h-48 overflow-hidden bg-navy-gradient">
+                      {image ? (
+                        <Photo
+                          src={image}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      ) : (
+                        <>
+                          <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold-500/20 blur-3xl" />
+                          <Icon className="absolute -bottom-4 -right-4 h-32 w-32 text-white/[0.06]" />
+                          <span className="absolute left-6 top-6 font-display text-6xl font-semibold text-white/10">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                        </>
+                      )}
+                    </div>
                     <span className="absolute bottom-0 left-6 flex h-14 w-14 translate-y-1/2 items-center justify-center rounded-2xl bg-gold-gradient text-navy-950 shadow-glow transition-transform duration-500 group-hover:rotate-6">
                       <Icon className="h-6 w-6" />
                     </span>

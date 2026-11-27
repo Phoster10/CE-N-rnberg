@@ -4,13 +4,15 @@ import PageHero from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
 import RegularGatherings from "@/components/regular-gatherings";
 import Photo from "@/components/photo";
-import { getAllEvents } from "@/lib/data";
+import { getAllEvents, getSiteSettings } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
+import { zoomUrl } from "@/lib/schedule";
 import { stockImages } from "@/lib/images";
 
 export const metadata = { title: "Events" };
 
 export default async function EventsPage() {
-  const events = await getAllEvents();
+  const [events, settings] = await Promise.all([getAllEvents(), getSiteSettings()]);
 
   return (
     <>
@@ -23,7 +25,10 @@ export default async function EventsPage() {
       />
       <section className="section py-24 lg:py-32">
         <h2 className="container-heading mb-10">Join us regularly</h2>
-        <RegularGatherings renderedAt={Date.now()} />
+        <RegularGatherings
+          renderedAt={Date.now()}
+          facebookUrl={settings?.social_facebook || siteConfig.social.facebook}
+        />
 
         {events.length > 0 && <h2 className="container-heading mb-10 mt-24">Special events</h2>}
         <div className="space-y-6">

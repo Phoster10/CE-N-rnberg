@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getWatchOnlineSettings, getSiteSettings } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 import { stockImages } from "@/lib/images";
+import { zoomUrl } from "@/lib/schedule";
 
 export const metadata = { title: "Watch Online" };
 
@@ -15,7 +16,7 @@ export default async function WatchOnlinePage() {
   // We stream on Facebook Live. Facebook's video plugin embeds the same way
   // YouTube's does — just paste the Facebook Live "Embed" link here.
   const embedUrl = settings?.youtube_embed_url;
-  const zoomLink = settings?.zoom_link;
+  const zoomLink = settings?.zoom_link || zoomUrl;
   const facebookUrl = siteSettings?.social_facebook || siteConfig.social.facebook;
   const youtubeUrl = siteSettings?.social_youtube || siteConfig.social.youtube;
 
@@ -59,16 +60,23 @@ export default async function WatchOnlinePage() {
                   <PlayCircle className="h-12 w-12 text-gold-400" />
                 </span>
                 <h2 className="font-display text-4xl font-semibold sm:text-5xl">Join us live</h2>
-                <p className="max-w-md text-lg text-navy-200">Every Sunday at 10:00 · Streamed live on Facebook</p>
-                <Button href={facebookUrl} target="_blank" rel="noopener noreferrer" variant="primary" size="lg">
-                  <Facebook className="h-4 w-4" /> Watch on Facebook
-                </Button>
+                <p className="max-w-md text-lg text-navy-200">
+                  Sundays at 10:00 and Wednesdays at 18:00 · Streamed live on Facebook and Zoom
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Button href={facebookUrl} target="_blank" rel="noopener noreferrer" variant="primary" size="lg">
+                    <Facebook className="h-4 w-4" /> Watch on Facebook
+                  </Button>
+                  <Button href={zoomLink} target="_blank" rel="noopener noreferrer" variant="outline" size="lg">
+                    <Video className="h-4 w-4" /> Join on Zoom
+                  </Button>
+                </div>
               </div>
             )}
           </div>
         </Reveal>
 
-        {isLive && zoomLink && (
+        {isLive && (
           <Reveal className="mt-6">
             <div className="flex flex-col gap-4 rounded-3xl border border-navy-100/70 bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
@@ -76,10 +84,9 @@ export default async function WatchOnlinePage() {
                   <Video className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="font-semibold text-navy-900">Join our Zoom prayer room</p>
+                  <p className="font-semibold text-navy-900">Join us on Zoom</p>
                   <p className="text-sm text-navy-500">
-                    This opens Zoom in a new tab or the Zoom app — it&apos;s a separate, interactive room alongside
-                    the video above, not the video itself.
+                    Our services are also streamed on Zoom. This opens in a new tab or the Zoom app.
                   </p>
                 </div>
               </div>

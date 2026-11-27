@@ -12,3 +12,21 @@ export const stockImages = {
   sanctuary: unsplash("photo-1519491050282-cf00c82424b4"),
   praise: unsplash("photo-1507692049790-de58290a4334"),
 };
+
+// Matched against the ministry's name, first hit wins ("women" must come before "men").
+const ministryPhotos: [RegExp, string][] = [
+  [/child|kid/i, "photo-1529390079861-591de354faf5"],
+  [/teen/i, "photo-1744320911030-1ab998d994d7"],
+  [/youth/i, "photo-1563902341721-029085ad9347"],
+  [/women|woman|ladies/i, "photo-1630726410985-a1021e8a232a"],
+  [/\bmen\b|\bmen's/i, "photo-1653566031535-bcf33e1c2893"],
+  [/choir|music|worship/i, "photo-1593678820334-91d5f99be314"],
+  [/media/i, "photo-1627697855200-b3278a1f4209"],
+  [/evangel|outreach/i, "photo-1779787818512-c99bab0e3b06"],
+];
+
+/** Stock photo for a ministry that has no uploaded image, or null if none fits. */
+export function ministryImage(name: string) {
+  const match = ministryPhotos.find(([pattern]) => pattern.test(name));
+  return match ? unsplash(match[1], 900) : null;
+}

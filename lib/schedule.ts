@@ -11,11 +11,13 @@ export const weeklyServices = [
   { title: "Midweek Service", description: "A midweek encounter with the Word.", weekday: 3, hour: 18 },
 ];
 
+/** One Zoom room for the daily prayers and for streaming both services. */
+export const zoomUrl = "https://us06web.zoom.us/j/5647700167?pwd=aTV5RWxDazRCZGJwVkZFcUpXVGtNZz09#success";
+
 export const zoomPrayer = {
   title: "Daily Prayers on Zoom",
   description: "Pray with us every day, wherever you are.",
   hours: [5, 20, 23],
-  url: "https://us06web.zoom.us/j/5647700167?pwd=aTV5RWxDazRCZGJwVkZFcUpXVGtNZz09#success",
 };
 
 function berlinParts(date: Date) {
