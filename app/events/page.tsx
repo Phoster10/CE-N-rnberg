@@ -2,22 +2,15 @@ import { CalendarDays, Clock, ExternalLink, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import PageHero from "@/components/page-hero";
 import Reveal from "@/components/motion/reveal";
+import RegularGatherings from "@/components/regular-gatherings";
 import Photo from "@/components/photo";
 import { getAllEvents } from "@/lib/data";
 import { stockImages } from "@/lib/images";
 
 export const metadata = { title: "Events" };
 
-const fallback = [
-  { id: "1", title: "Sunday Service", description: "Join us for an amazing time in God's presence.", start_at: new Date().toISOString(), end_at: null, location: null, poster_url: null, registration_url: null },
-  { id: "2", title: "Midweek Service", description: "A midweek encounter with the Word.", start_at: new Date().toISOString(), end_at: null, location: null, poster_url: null, registration_url: null },
-  { id: "3", title: "Healing Streams", description: "A special time of healing and miracles.", start_at: new Date().toISOString(), end_at: null, location: null, poster_url: null, registration_url: null },
-  { id: "4", title: "Communion Service", description: "Remembering His death till He comes.", start_at: new Date().toISOString(), end_at: null, location: null, poster_url: null, registration_url: null },
-];
-
 export default async function EventsPage() {
   const events = await getAllEvents();
-  const list = events.length > 0 ? events : fallback;
 
   return (
     <>
@@ -29,8 +22,12 @@ export default async function EventsPage() {
         crumbs={[{ label: "Home", href: "/" }, { label: "Events" }]}
       />
       <section className="section py-24 lg:py-32">
+        <h2 className="container-heading mb-10">Join us regularly</h2>
+        <RegularGatherings renderedAt={Date.now()} />
+
+        {events.length > 0 && <h2 className="container-heading mb-10 mt-24">Special events</h2>}
         <div className="space-y-6">
-          {list.map((e, i) => {
+          {events.map((e, i) => {
             const start = new Date(e.start_at);
             return (
               <Reveal key={e.id} delay={0.05 * Math.min(i, 4)}>

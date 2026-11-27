@@ -17,7 +17,7 @@ export default async function VisitPage() {
       ? services.map((s) => ({ label: s.label, day: DAYS[s.day_of_week], time: s.time.slice(0, 5) }))
       : [
           { label: "Sunday Service", day: "Sunday", time: "10:00" },
-          { label: "Midweek Service", day: "Wednesday", time: "19:00" },
+          { label: "Midweek Service", day: "Wednesday", time: "18:00" },
         ];
 
   const address1 = settings?.address_line1 || siteConfig.address.line1;

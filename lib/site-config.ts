@@ -13,7 +13,7 @@ export const siteConfig = {
   email: "info@christembassy-nuernberg.de",
   serviceTimes: [
     { label: "Sunday Service", time: "10:00 AM" },
-    { label: "Midweek Service", time: "7:00 PM (Wed)" },
+    { label: "Midweek Service", time: "6:00 PM (Wed)" },
   ],
   social: {
     youtube: "https://youtube.com",

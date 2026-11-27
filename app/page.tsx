@@ -89,7 +89,7 @@ export default async function HomePage() {
       ? services.map((s) => ({ label: s.label, when: `${DAYS[s.day_of_week]}s · ${s.time.slice(0, 5)}` }))
       : [
           { label: "Sunday Service", when: "Sundays · 10:00" },
-          { label: "Midweek Service", when: "Wednesdays · 19:00" },
+          { label: "Midweek Service", when: "Wednesdays · 18:00" },
         ];
 
   const eventList = events.length > 0 ? events : fallbackEvents;
